@@ -3,4 +3,5 @@ project(data_structures_and_algorithms)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(data_structures_and_algorithms data_structures/array/array_playground.cpp)
+add_executable(array data_structures/array/array_playground.cpp)
+add_executable(linked_list data_structures/linked_list/linked_list_playground.cpp)
