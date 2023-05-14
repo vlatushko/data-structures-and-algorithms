@@ -3,4 +3,4 @@ project(data_structures_and_algorithms)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(data_structures_and_algorithms array.cpp)
+add_executable(data_structures_and_algorithms Array/array.cpp)
