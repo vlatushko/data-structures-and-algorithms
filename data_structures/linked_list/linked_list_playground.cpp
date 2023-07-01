@@ -3,31 +3,29 @@
 //
 
 #include <iostream>
-#include "LinkedList.h"
+#include "SinglyLinkedList.h"
 
 using namespace std;
 
 int main(){
-    auto* headNode = new Node<int>{1, nullptr};
+    auto* linkedList = new SinglyLinkedList<int>();
 
-    auto* linkedList = new LinkedList<int>(headNode);
-    linkedList->addNode(2);
-    linkedList->addNode(3);
-    linkedList->addNode(4);
-    linkedList->addNode(5);
+    linkedList->append(3);
+    linkedList->push(1);
+    linkedList->push(2);
+    linkedList->push(3);
+    linkedList->push(4);
+    linkedList->append(7);
 
-    auto head = linkedList->getHeadNode();
-    auto currentNode = head;
+    linkedList->traverse([](Node<int>* node){
+        cout << "item: " << node->data << " at address: " << node << endl;
+    });
 
-    while(true)
-    {
-        cout << currentNode->data << endl;
+    cout << "after removal" << endl << endl;
 
-        if (currentNode->nextRef == nullptr)
-            break;
-
-        currentNode = currentNode->nextRef;
-    }
+    linkedList->traverse([](Node<int>* node){
+        cout << "item: " << node->data << " at address: " << node << endl;
+    });
 
     delete linkedList;
 
