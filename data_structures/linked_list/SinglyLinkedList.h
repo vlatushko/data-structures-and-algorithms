@@ -14,15 +14,17 @@ public:
     SinglyLinkedList();
     ~SinglyLinkedList();
 
-    void push(T data);
-    void append(T data);
+    Node<T>* push(T data);
+    Node<T>* append(T data);
     bool remove(Node<T>* node);
+    bool remove(T val);
     auto get_head_node();
     void traverse(void (*func_ptr)(Node<T>*));
+    bool is_empty() const;
+    Node<T>* find_node(T val);
 
 private:
     Node<T>* head;
-    Node<T>* tail;
 };
 
 #include "SinglyLinkedList.tpp"

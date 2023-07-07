@@ -1,7 +1,7 @@
 using namespace std;
 
 template<typename T>
-SinglyLinkedList<T>::SinglyLinkedList() : head(nullptr), tail(nullptr) {}
+SinglyLinkedList<T>::SinglyLinkedList() : head(nullptr) {}
 
 template<typename T>
 SinglyLinkedList<T>::~SinglyLinkedList() {
@@ -33,29 +33,36 @@ auto SinglyLinkedList<T>::get_head_node() {
 }
 
 template<typename T>
-void SinglyLinkedList<T>::push(T data) {
-    if (head == nullptr) {
+Node<T>* SinglyLinkedList<T>::push(T data) {
+    if (is_empty()) {
         head = new Node<T>{data, nullptr};
-        tail = head;
 
-        return;
+        return head;
     }
 
     auto newNode = new Node<T>{data, head};
     head = newNode;
+
+    return newNode;
 }
 
+//O(n)
 template<typename T>
-void SinglyLinkedList<T>::append(T data) {
-    if (head == nullptr){
-        push(data);
-
-        return;
-    }
+Node<T>* SinglyLinkedList<T>::append(T data) {
+    if (is_empty())
+        return push(data);
 
     auto newNode = new Node<T>{data, nullptr};
-    tail->nextRef = newNode;
-    tail = newNode;
+    auto nextNode = head;
+    while(nextNode != nullptr){
+        if (nextNode->nextRef == nullptr) {
+            nextNode->nextRef = newNode;
+            break;
+        } else
+            nextNode = nextNode->nextRef;
+    }
+
+    return newNode;
 }
 
 template<typename T>
@@ -72,43 +79,47 @@ void SinglyLinkedList<T>::traverse(void (*func_ptr)(Node<T>*)) {
 
 template<typename T>
 bool SinglyLinkedList<T>::remove(Node<T> *node) {
-    if (head == nullptr)
+    if (is_empty())
         return false;
 
-    if (head == node)
-    {
+    if (node == head){
+        auto staleHead = head;
         head = head->nextRef;
-        delete node;
+
+        delete staleHead;
 
         return true;
     }
 
-    auto current_node = head;
+    auto nextNode = head;
+    while(nextNode->nextRef != nullptr){
+        if (nextNode->nextRef == node){
+            auto nodeToRemove = nextNode->nextRef;
+            nextNode->nextRef = nodeToRemove->nextRef;
 
-    do
-    {
-        if (current_node->nextRef == tail && node == tail)
-        {
-            tail = current_node;
-            tail->nextRef = nullptr;
-
-            delete node;
+            delete nodeToRemove;
 
             return true;
         }
-
-        if(current_node == node)
-        {
-            current_node->nextRef = node->nextRef;
-
-            delete node;
-
-            return true;
-        }
-
-        current_node = current_node->nextRef;
+        else
+            nextNode = nextNode->nextRef;
     }
-    while(current_node != nullptr);
 
     return false;
+}
+
+template<typename T>
+bool SinglyLinkedList<T>::remove(T val) {
+    //remove by value
+    return false;
+}
+
+template<typename T>
+bool SinglyLinkedList<T>::is_empty() const {
+    return this->head == nullptr;
+}
+
+template<typename T>
+Node<T>* find_node(T val) {
+    throw std::logic_error("Function is not implemented");
 }

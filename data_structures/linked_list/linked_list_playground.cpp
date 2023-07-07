@@ -10,18 +10,20 @@ using namespace std;
 int main(){
     auto* linkedList = new SinglyLinkedList<int>();
 
-    linkedList->append(3);
-    linkedList->push(1);
-    linkedList->push(2);
-    linkedList->push(3);
-    linkedList->push(4);
-    linkedList->append(7);
+    //testing if removal fails when the list is empty
+    linkedList->remove(new Node<int>{0, nullptr});
 
-    linkedList->traverse([](Node<int>* node){
-        cout << "item: " << node->data << " at address: " << node << endl;
-    });
+    auto appendedNode1 = linkedList->append(3);
 
-    cout << "after removal" << endl << endl;
+    linkedList->remove(appendedNode1);
+
+    auto pushedNode1 = linkedList->push(1);
+    auto pushedNode2 = linkedList->push(2);
+    auto pushedNode3 = linkedList->push(3);
+    auto pushedNode4 = linkedList->push(4);
+    auto appendedNode2 = linkedList->append(7);
+
+    linkedList->remove(pushedNode3);
 
     linkedList->traverse([](Node<int>* node){
         cout << "item: " << node->data << " at address: " << node << endl;
