@@ -25,6 +25,13 @@ int main(){
 
     linkedList->remove(pushedNode3);
 
+    //trying to find a node
+    auto foundNode = linkedList->findNode(4); //existing
+    auto notFoundNode = linkedList->findNode(3); //removed before
+
+    cout << "Trying to remove non-existent node with value of 3: " << linkedList->remove(3) << endl;
+    cout << "Trying to remove existing node with value of 4: " << linkedList->remove(4) << endl;
+
     linkedList->traverse([](Node<int>* node){
         cout << "item: " << node->data << " at address: " << node << endl;
     });

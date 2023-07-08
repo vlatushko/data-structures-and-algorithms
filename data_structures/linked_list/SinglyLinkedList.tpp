@@ -1,3 +1,5 @@
+#include <iostream>
+
 using namespace std;
 
 template<typename T>
@@ -10,13 +12,13 @@ SinglyLinkedList<T>::~SinglyLinkedList() {
 
     while(true)
     {
-        if (currentNode->nextRef != nullptr) {
+        if (currentNode->nextNode != nullptr) {
             cout << "Releasing memory of an element..." << endl;
-            head = currentNode->nextRef;
+            head = currentNode->nextNode;
             delete currentNode;
 
             currentNode = head;
-            head = currentNode->nextRef;
+            head = currentNode->nextNode;
         }
         else
         {
@@ -28,13 +30,13 @@ SinglyLinkedList<T>::~SinglyLinkedList() {
 }
 
 template<typename T>
-auto SinglyLinkedList<T>::get_head_node() {
+auto SinglyLinkedList<T>::getHeadNode() {
     return head;
 }
 
 template<typename T>
 Node<T>* SinglyLinkedList<T>::push(T data) {
-    if (is_empty()) {
+    if (isEmpty()) {
         head = new Node<T>{data, nullptr};
 
         return head;
@@ -49,17 +51,17 @@ Node<T>* SinglyLinkedList<T>::push(T data) {
 //O(n)
 template<typename T>
 Node<T>* SinglyLinkedList<T>::append(T data) {
-    if (is_empty())
+    if (isEmpty())
         return push(data);
 
     auto newNode = new Node<T>{data, nullptr};
     auto nextNode = head;
     while(nextNode != nullptr){
-        if (nextNode->nextRef == nullptr) {
-            nextNode->nextRef = newNode;
+        if (nextNode->nextNode == nullptr) {
+            nextNode->nextNode = newNode;
             break;
         } else
-            nextNode = nextNode->nextRef;
+            nextNode = nextNode->nextNode;
     }
 
     return newNode;
@@ -70,56 +72,74 @@ void SinglyLinkedList<T>::traverse(void (*func_ptr)(Node<T>*)) {
     auto next = head;
     while(true){
         func_ptr(next);
-        next = next->nextRef;
+        next = next->nextNode;
 
         if (next == nullptr)
             break;
     }
 }
 
+//O(1)
 template<typename T>
 bool SinglyLinkedList<T>::remove(Node<T> *node) {
-    if (is_empty())
+    if (isEmpty())
         return false;
 
-    if (node == head){
-        auto staleHead = head;
-        head = head->nextRef;
+    if (node == head)
+        return removeHead();
 
-        delete staleHead;
-
-        return true;
-    }
-
-    auto nextNode = head;
-    while(nextNode->nextRef != nullptr){
-        if (nextNode->nextRef == node){
-            auto nodeToRemove = nextNode->nextRef;
-            nextNode->nextRef = nodeToRemove->nextRef;
+    auto currentNode = head;
+    while(currentNode->nextNode != nullptr){
+        if (currentNode->nextNode == node){
+            auto nodeToRemove = currentNode->nextNode;
+            currentNode->nextNode = nodeToRemove->nextNode;
 
             delete nodeToRemove;
 
             return true;
         }
         else
-            nextNode = nextNode->nextRef;
+            currentNode = currentNode->nextNode;
     }
 
     return false;
 }
 
 template<typename T>
+bool SinglyLinkedList<T>::removeHead() {
+    auto staleHead = head;
+    head = head->nextNode;
+
+    delete staleHead;
+
+    return true;
+}
+
+//O(n)
+template<typename T>
 bool SinglyLinkedList<T>::remove(T val) {
-    //remove by value
+    auto nodeToRemove = findNode(val);
+    if(nodeToRemove != nullptr)
+        return remove(nodeToRemove);
+
     return false;
 }
 
 template<typename T>
-bool SinglyLinkedList<T>::is_empty() const {
+bool SinglyLinkedList<T>::isEmpty() const {
     return this->head == nullptr;
 }
 
+//O(n)
 template<typename T>
-Node<T>* find_node(T val) {
-    throw std::logic_error("Function is not implemented");
+Node<T>* SinglyLinkedList<T>::findNode(T val) {
+    auto currentNode = head;
+    while(currentNode != nullptr){
+        if (currentNode->data == val)
+            return currentNode;
+        else
+            currentNode = currentNode->nextNode;
+    }
+
+    return nullptr;
 }

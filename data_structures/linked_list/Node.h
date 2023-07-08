@@ -8,9 +8,10 @@
 template<typename T>
 class Node {
 public:
-    Node(T d, Node<T>* n);
+    Node(T data, Node<T>* nextNode);
+
     T data;
-    Node<T>* nextRef;
+    Node<T>* nextNode;
 };
 
 #include "Node.tpp"

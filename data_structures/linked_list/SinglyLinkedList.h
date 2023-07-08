@@ -18,13 +18,15 @@ public:
     Node<T>* append(T data);
     bool remove(Node<T>* node);
     bool remove(T val);
-    auto get_head_node();
+    auto getHeadNode();
     void traverse(void (*func_ptr)(Node<T>*));
-    bool is_empty() const;
-    Node<T>* find_node(T val);
+    Node<T>* findNode(T val);
 
 private:
     Node<T>* head;
+
+    bool isEmpty() const;
+    bool removeHead();
 };
 
 #include "SinglyLinkedList.tpp"
