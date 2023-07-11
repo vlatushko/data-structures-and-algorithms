@@ -3,31 +3,48 @@
 //
 
 #include <iostream>
-#include "LinkedList.h"
+#include "SinglyLinkedList.h"
 
 using namespace std;
 
 int main(){
-    auto* headNode = new Node<int>{1, nullptr};
+    auto* linkedList = new SinglyLinkedList<int>();
 
-    auto* linkedList = new LinkedList<int>(headNode);
-    linkedList->addNode(2);
-    linkedList->addNode(3);
-    linkedList->addNode(4);
-    linkedList->addNode(5);
+    //testing if removal fails when the list is empty
+    linkedList->remove(new Node<int>{0, nullptr});
 
-    auto head = linkedList->getHeadNode();
-    auto currentNode = head;
+    auto appendedNode1 = linkedList->append(3);
 
-    while(true)
-    {
-        cout << currentNode->data << endl;
+    linkedList->remove(appendedNode1);
 
-        if (currentNode->nextRef == nullptr)
-            break;
+    auto pushedNode1 = linkedList->push(1);
+    auto pushedNode2 = linkedList->push(2);
+    auto pushedNode3 = linkedList->push(3);
+    auto pushedNode4 = linkedList->push(4);
+    auto appendedNode2 = linkedList->append(7);
 
-        currentNode = currentNode->nextRef;
-    }
+    cout << "Traversing the linked list before any edits...\n\n";
+    linkedList->traverse([](Node<int>* node){
+        cout << "item: " << node->data << " at address: " << node << endl;
+    });
+
+    linkedList->remove(pushedNode3);
+
+    //trying to find a node
+    auto foundNode = linkedList->findNode(4); //existing
+    auto notFoundNode = linkedList->findNode(3); //removed before
+
+    cout << "Trying to remove non-existent node with value of 3: " << linkedList->remove(3) << endl;
+    cout << "Trying to remove existing node with value of 4: " << linkedList->remove(4) << endl;
+
+    linkedList->traverse([](Node<int>* node){
+        node->data = 1;
+    });
+
+    cout << "Traversing the linked list after all edits...\n\n";
+    linkedList->traverse([](Node<int>* node){
+        cout << "item: " << node->data << " at address: " << node << endl;
+    });
 
     delete linkedList;
 
