@@ -23,6 +23,11 @@ int main(){
     auto pushedNode4 = linkedList->push(4);
     auto appendedNode2 = linkedList->append(7);
 
+    cout << "Traversing the linked list before any edits...\n\n";
+    linkedList->traverse([](Node<int>* node){
+        cout << "item: " << node->data << " at address: " << node << endl;
+    });
+
     linkedList->remove(pushedNode3);
 
     //trying to find a node
@@ -32,6 +37,11 @@ int main(){
     cout << "Trying to remove non-existent node with value of 3: " << linkedList->remove(3) << endl;
     cout << "Trying to remove existing node with value of 4: " << linkedList->remove(4) << endl;
 
+    linkedList->traverse([](Node<int>* node){
+        node->data = 1;
+    });
+
+    cout << "Traversing the linked list after all edits...\n\n";
     linkedList->traverse([](Node<int>* node){
         cout << "item: " << node->data << " at address: " << node << endl;
     });

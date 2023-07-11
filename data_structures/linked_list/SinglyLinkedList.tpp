@@ -70,12 +70,9 @@ Node<T>* SinglyLinkedList<T>::append(T data) {
 template<typename T>
 void SinglyLinkedList<T>::traverse(void (*func_ptr)(Node<T>*)) {
     auto next = head;
-    while(true){
+    while(next != nullptr){
         func_ptr(next);
         next = next->nextNode;
-
-        if (next == nullptr)
-            break;
     }
 }
 
