@@ -11,7 +11,9 @@ int main(){
     auto* linkedList = new SinglyLinkedList<int>();
 
     //testing if removal fails when the list is empty
-    linkedList->remove(new Node<int>{0, nullptr});
+    if (!linkedList->remove(new Node<int>{0, nullptr})){
+        cout << "The list is empty, nothing to remove\n";
+    }
 
     auto appendedNode1 = linkedList->append(3);
 
