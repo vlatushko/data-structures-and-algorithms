@@ -5,7 +5,7 @@
 #ifndef DATA_STRUCTURES_AND_ALGORITHMS_SINGLYLINKEDLIST_H
 #define DATA_STRUCTURES_AND_ALGORITHMS_SINGLYLINKEDLIST_H
 
-#include "Node.h"
+#include "../Node.h"
 #include "vector"
 
 template<typename T>
