@@ -7,7 +7,7 @@ SinglyLinkedList<T>::SinglyLinkedList() : head(nullptr) {}
 
 template<typename T>
 SinglyLinkedList<T>::~SinglyLinkedList() {
-    cout << "Calling the destructor of the Linked List..." << endl;
+    cout << "Calling the destructor of the Singly Linked List..." << endl;
     Node<T>* currentNode = head;
 
     while(true)
