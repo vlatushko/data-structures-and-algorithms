@@ -12,7 +12,7 @@ class DoublyLinkedListNode : public Node<T> {
 public:
     DoublyLinkedListNode(T data, DoublyLinkedListNode<T>* prevNode, DoublyLinkedListNode<T>* nextNode)
         : Node<T>(data, nextNode){
-
+        this->prevNode = prevNode;
     }
 
     DoublyLinkedListNode<T>* prevNode;
