@@ -14,6 +14,11 @@ public:
     Node<T>* nextNode;
 };
 
-#include "Node.tpp"
 
+//implementation of the header members
+template<typename T>
+Node<T>::Node(T data, Node<T> *nextNode) {
+    this->data = data;
+    this->nextNode = nextNode;
+}
 #endif //DATA_STRUCTURES_AND_ALGORITHMS_NODE_H
